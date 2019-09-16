@@ -1520,7 +1520,7 @@ class CartCore extends ObjectModel
 
         /* Deletion */
         if (!empty($id_customization) && (int) $quantity < 1) {
-            return $this->_deleteCustomization((int) $id_customization, (int) $id_product, (int) $id_product_attribute);
+            return $this->_deleteCustomization((int) $id_customization);
         }
 
         /* Quantity update */
@@ -1686,7 +1686,7 @@ class CartCore extends ObjectModel
         }
 
         if ((int) $id_customization) {
-            if (!$this->_deleteCustomization((int) $id_customization, (int) $id_product, (int) $id_product_attribute, (int) $id_address_delivery)) {
+            if (!$this->_deleteCustomization((int) $id_customization)) {
                 return false;
             }
         }
@@ -1782,14 +1782,10 @@ class CartCore extends ObjectModel
      * then the Image is also deleted.
      *
      * @param int $id_customization Customization Id
-     * @param int|null $id_product Unused
-     * @param int|null $id_product_attribute Unused
-     * @param int|null $id_address_delivery Unused
      *
      * @return bool Indicates if the Customization was successfully deleted
-     * @todo: Remove unused parameters
      */
-    protected function _deleteCustomization($id_customization, $id_product, $id_product_attribute, $id_address_delivery = 0)
+    protected function _deleteCustomization($id_customization)
     {
         $result = true;
         $customization = Db::getInstance()->getRow('SELECT *
